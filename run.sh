@@ -105,7 +105,7 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 clear
-python3 portscan-advanced.py "$@"
+python3 portscan-script.py "$@"
 
 EXIT_CODE=$?
 
