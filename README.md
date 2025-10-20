@@ -1,13 +1,12 @@
-# PortScan Advanced
+# PortScan
 
 <div align="center">
 
 ![Version](https://img.shields.io/badge/version-2.0-green)
 ![Python](https://img.shields.io/badge/python-3.7%2B-blue)
-![License](https://img.shields.io/badge/license-MIT-blue)
 ![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgrey)
 
-**Herramienta avanzada de reconocimiento y auditoría de redes con interfaz de terminal verde estilo hacker**
+**Herramienta avanzada de reconocimiento y auditoría de redes con interfaz de terminal**
 
 </div>
 
@@ -15,11 +14,11 @@
 
 ## Descripcion
 
-**PortScan Advanced** es una herramienta profesional de escaneo de redes que combina multiples tecnicas de reconocimiento en una interfaz interactiva. Diseñada para profesionales de seguridad, administradores de sistemas y entusiastas de redes.
+**PortScan** es una herramienta profesional de escaneo de redes que combina multiples tecnicas de reconocimiento en una interfaz interactiva. Diseñada para profesionales de seguridad, administradores de sistemas y entusiastas de redes.
 
 ### Caracteristicas Principales
 
-- **Interfaz interactiva** con menu verde estilo terminal
+- **Interfaz interactiva**
 - **14 funcionalidades** de escaneo y reconocimiento
 - **Multiples formatos** de exportacion (JSON, CSV, HTML)
 - **Escaneos sigilosos** para evasion de IDS
@@ -296,18 +295,6 @@ Funciones que requieren privilegios:
 5. **Troubleshooting** - Diagnostico de problemas de red
 6. **Cumplimiento** - Verificar politicas de seguridad
 7. **DevOps** - Validar despliegues
-
----
-
-## Contribuciones
-
-Las contribuciones son bienvenidas! Si tienes ideas para mejorar la herramienta:
-
-1. Fork el proyecto
-2. Crea una rama para tu funcion (`git checkout -b feature/nueva-funcion`)
-3. Commit tus cambios (`git commit -m 'Añadir nueva funcion'`)
-4. Push a la rama (`git push origin feature/nueva-funcion`)
-5. Abre un Pull Request
 
 ---
 
