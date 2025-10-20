@@ -1,0 +1,84 @@
+# Configuración para Git
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribución / empaquetado
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Entornos virtuales
+venv/
+ENV/
+env/
+.venv
+
+# Archivos de resultados
+output.json
+scan_results_*.json
+scan_results_*.csv
+scan_results_*.html
+*.log
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Archivos de sistema
+Thumbs.db
+desktop.ini
+
+# Archivos temporales
+*.tmp
+*.bak
+*.backup
+
+# Archivos de configuración locales
+config.local.ini
+settings.local.json
+
+# Bases de datos
+*.db
+*.sqlite
+*.sqlite3
+
+# Caché de pytest
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# Archivos de Nmap
+*.gnmap
+*.nmap
+*.xml

@@ -1,0 +1,77 @@
+#!/bin/bash
+# PortScan - Launcher Script for Linux/macOS
+
+# Colores
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+
+# Banner
+clear
+echo -e "${GREEN}"
+echo "╔═══════════════════════════════════════════════════════════════╗"
+echo "║               PortScan - Network Reconnaissance               ║"
+echo "╚═══════════════════════════════════════════════════════════════╝"
+echo -e "${NC}"
+
+# Verificar si Python está instalado
+if ! command -v python3 &> /dev/null; then
+    echo -e "${RED}[ERROR] Python3 no está instalado${NC}"
+    echo "Por favor instala Python 3.7+ usando tu gestor de paquetes"
+    exit 1
+fi
+
+# Verificar si Nmap está instalado
+if ! command -v nmap &> /dev/null; then
+    echo -e "${YELLOW}[!] Nmap no está instalado${NC}"
+    echo "Instalando Nmap..."
+    
+    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+        sudo apt-get update && sudo apt-get install -y nmap
+    elif [[ "$OSTYPE" == "darwin"* ]]; then
+        brew install nmap
+    else
+        echo -e "${RED}[ERROR] Sistema operativo no soportado${NC}"
+        exit 1
+    fi
+fi
+
+# Verificar dependencias de Python
+echo -e "${GREEN}[*] Verificando dependencias de Python...${NC}"
+python3 -c "import nmap, scapy, colorama, requests" 2>/dev/null
+if [ $? -ne 0 ]; then
+    echo -e "${YELLOW}[!] Instalando dependencias...${NC}"
+    pip3 install -r requirements.txt
+    
+    if [ $? -ne 0 ]; then
+        echo -e "${RED}[ERROR] No se pudieron instalar las dependencias${NC}"
+        exit 1
+    fi
+fi
+
+# Verificar si se necesitan privilegios de root
+if [ "$EUID" -ne 0 ]; then
+    echo -e "${YELLOW}[!] Algunas funciones requieren privilegios de root${NC}"
+    echo -e "${YELLOW}[!] Considera ejecutar con: sudo ./run.sh${NC}"
+    echo ""
+    read -p "¿Continuar sin privilegios? (y/n) " -n 1 -r
+    echo
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+        exit 1
+    fi
+fi
+
+# Ejecutar el programa
+clear
+python3 portscan-script.py "$@"
+
+# Capturar el código de salida
+EXIT_CODE=$?
+
+if [ $EXIT_CODE -ne 0 ]; then
+    echo -e "${RED}El programa terminó con errores (código: $EXIT_CODE)${NC}"
+    read -p "Presiona ENTER para salir..."
+fi
+
+exit $EXIT_CODE
