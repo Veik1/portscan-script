@@ -1,13 +1,12 @@
 #!/bin/bash
-# PortScan - Launcher Script for Linux/macOS
 
-# Colores
+cd "$(dirname "$0")"
+
 GREEN='\033[0;32m'
 RED='\033[0;31m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
-# Banner
 clear
 echo -e "${GREEN}"
 echo "╔═══════════════════════════════════════════════════════════════╗"
@@ -15,14 +14,12 @@ echo "║               PortScan - Network Reconnaissance               ║"
 echo "╚═══════════════════════════════════════════════════════════════╝"
 echo -e "${NC}"
 
-# Verificar si Python está instalado
 if ! command -v python3 &> /dev/null; then
     echo -e "${RED}[ERROR] Python3 no está instalado${NC}"
     echo "Por favor instala Python 3.7+ usando tu gestor de paquetes"
     exit 1
 fi
 
-# Verificar si Nmap está instalado
 if ! command -v nmap &> /dev/null; then
     echo -e "${YELLOW}[!] Nmap no está instalado${NC}"
     echo "Instalando Nmap..."
@@ -37,7 +34,6 @@ if ! command -v nmap &> /dev/null; then
     fi
 fi
 
-# Verificar dependencias de Python
 echo -e "${GREEN}[*] Verificando dependencias de Python...${NC}"
 python3 -c "import nmap, scapy, colorama, requests" 2>/dev/null
 if [ $? -ne 0 ]; then
@@ -50,7 +46,6 @@ if [ $? -ne 0 ]; then
     fi
 fi
 
-# Verificar si se necesitan privilegios de root
 if [ "$EUID" -ne 0 ]; then
     echo -e "${YELLOW}[!] Algunas funciones requieren privilegios de root${NC}"
     echo -e "${YELLOW}[!] Considera ejecutar con: sudo ./run.sh${NC}"
@@ -62,11 +57,9 @@ if [ "$EUID" -ne 0 ]; then
     fi
 fi
 
-# Ejecutar el programa
 clear
 python3 portscan-script.py "$@"
 
-# Capturar el código de salida
 EXIT_CODE=$?
 
 if [ $EXIT_CODE -ne 0 ]; then
