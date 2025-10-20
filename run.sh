@@ -20,16 +20,31 @@ if ! command -v python3 &> /dev/null; then
     exit 1
 fi
 
-if ! command -v pip3 &> /dev/null; then
+if ! command -v pip3 &> /dev/null && ! python3 -m pip --version &> /dev/null; then
     echo -e "${YELLOW}[!] pip3 no está instalado${NC}"
     echo "Instalando pip3..."
     
     if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-        sudo apt-get update && sudo apt-get install -y python3-pip
+        # Intentar instalar con apt-get (ignorando errores de repos)
+        sudo apt-get install -y python3-pip 2>/dev/null
+        
+        # Si falla, intentar con ensurepip
+        if ! command -v pip3 &> /dev/null && ! python3 -m pip --version &> /dev/null; then
+            echo -e "${YELLOW}Intentando método alternativo...${NC}"
+            python3 -m ensurepip --default-pip --user 2>/dev/null || \
+            sudo apt-get install -y python3-pip --fix-missing 2>/dev/null || \
+            wget -qO- https://bootstrap.pypa.io/get-pip.py | python3 - --user
+        fi
     elif [[ "$OSTYPE" == "darwin"* ]]; then
         python3 -m ensurepip --upgrade
-    else
+    fi
+    
+    # Verificar si se instaló correctamente
+    if ! command -v pip3 &> /dev/null && ! python3 -m pip --version &> /dev/null; then
         echo -e "${RED}[ERROR] No se pudo instalar pip3${NC}"
+        echo -e "${YELLOW}Por favor, instálalo manualmente:${NC}"
+        echo -e "${YELLOW}  sudo apt-get install python3-pip${NC}"
+        echo -e "${YELLOW}O usa: python3 -m ensurepip --default-pip --user${NC}"
         exit 1
     fi
 fi
@@ -52,14 +67,30 @@ echo -e "${GREEN}[*] Verificando dependencias de Python...${NC}"
 python3 -c "import nmap, scapy, colorama, requests" 2>/dev/null
 if [ $? -ne 0 ]; then
     echo -e "${YELLOW}[!] Instalando dependencias de Python...${NC}"
-    pip3 install -r requirements.txt --break-system-packages 2>/dev/null || pip3 install -r requirements.txt
     
+    # Intentar con pip3 primero
+    if command -v pip3 &> /dev/null; then
+        pip3 install -r requirements.txt --break-system-packages 2>/dev/null || \
+        pip3 install -r requirements.txt --user 2>/dev/null || \
+        pip3 install -r requirements.txt 2>/dev/null
+    # Si no hay pip3, usar python3 -m pip
+    elif python3 -m pip --version &> /dev/null; then
+        python3 -m pip install -r requirements.txt --break-system-packages 2>/dev/null || \
+        python3 -m pip install -r requirements.txt --user 2>/dev/null || \
+        python3 -m pip install -r requirements.txt 2>/dev/null
+    fi
+    
+    # Verificar si se instalaron correctamente
+    python3 -c "import nmap, scapy, colorama, requests" 2>/dev/null
     if [ $? -ne 0 ]; then
         echo -e "${RED}[ERROR] No se pudieron instalar las dependencias${NC}"
-        echo -e "${YELLOW}Intenta instalarlas manualmente con:${NC}"
-        echo -e "${YELLOW}  pip3 install python-nmap scapy requests colorama${NC}"
+        echo -e "${YELLOW}Intenta instalarlas manualmente con alguno de estos comandos:${NC}"
+        echo -e "${YELLOW}  pip3 install python-nmap scapy requests colorama --break-system-packages${NC}"
+        echo -e "${YELLOW}  python3 -m pip install python-nmap scapy requests colorama --user${NC}"
+        echo -e "${YELLOW}  sudo apt-get install python3-pip python3-scapy${NC}"
         exit 1
     fi
+    echo -e "${GREEN}[OK] Dependencias instaladas correctamente${NC}"
 fi
 
 if [ "$EUID" -ne 0 ]; then
