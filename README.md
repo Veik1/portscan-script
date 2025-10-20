@@ -34,14 +34,12 @@
 ### Windows
 
 ```cmd
-# Ejecutar con terminal verde automatico
 run.bat
 ```
 
 ### Linux/macOS
 
 ```bash
-# Ejecutar con terminal verde automatico
 chmod +x run.sh
 sudo ./run.sh
 ```
@@ -261,10 +259,8 @@ La herramienta usa colores para facilitar la lectura:
 
 ## Documentacion
 
-- **[README-ADVANCED.md](README-ADVANCED.md)** - Documentacion completa y detallada
 - **[INSTALL.md](INSTALL.md)** - Guia de instalacion para todos los sistemas operativos
 - **[EXAMPLES.md](EXAMPLES.md)** - 20+ ejemplos practicos de uso
-- **[CHANGELOG.md](CHANGELOG.md)** - Historial de versiones y cambios
 
 ---
 

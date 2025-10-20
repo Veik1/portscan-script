@@ -20,7 +20,6 @@ Esta guía contiene ejemplos prácticos de uso de PortScan Advanced para diferen
 ```bash
 python portscan-advanced.py
 # Seleccionar opción [1]
-# Dejar interfaz en blanco (auto-detect)
 ```
 
 **Salida esperada:**
