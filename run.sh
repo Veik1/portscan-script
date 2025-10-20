@@ -20,12 +20,26 @@ if ! command -v python3 &> /dev/null; then
     exit 1
 fi
 
+if ! command -v pip3 &> /dev/null; then
+    echo -e "${YELLOW}[!] pip3 no está instalado${NC}"
+    echo "Instalando pip3..."
+    
+    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+        sudo apt-get update && sudo apt-get install -y python3-pip
+    elif [[ "$OSTYPE" == "darwin"* ]]; then
+        python3 -m ensurepip --upgrade
+    else
+        echo -e "${RED}[ERROR] No se pudo instalar pip3${NC}"
+        exit 1
+    fi
+fi
+
 if ! command -v nmap &> /dev/null; then
     echo -e "${YELLOW}[!] Nmap no está instalado${NC}"
     echo "Instalando Nmap..."
     
     if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-        sudo apt-get update && sudo apt-get install -y nmap
+        sudo apt-get install -y nmap
     elif [[ "$OSTYPE" == "darwin"* ]]; then
         brew install nmap
     else
@@ -37,11 +51,13 @@ fi
 echo -e "${GREEN}[*] Verificando dependencias de Python...${NC}"
 python3 -c "import nmap, scapy, colorama, requests" 2>/dev/null
 if [ $? -ne 0 ]; then
-    echo -e "${YELLOW}[!] Instalando dependencias...${NC}"
-    pip3 install -r requirements.txt
+    echo -e "${YELLOW}[!] Instalando dependencias de Python...${NC}"
+    pip3 install -r requirements.txt --break-system-packages 2>/dev/null || pip3 install -r requirements.txt
     
     if [ $? -ne 0 ]; then
         echo -e "${RED}[ERROR] No se pudieron instalar las dependencias${NC}"
+        echo -e "${YELLOW}Intenta instalarlas manualmente con:${NC}"
+        echo -e "${YELLOW}  pip3 install python-nmap scapy requests colorama${NC}"
         exit 1
     fi
 fi
@@ -58,7 +74,7 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 clear
-python3 portscan-script.py "$@"
+python3 portscan-advanced.py "$@"
 
 EXIT_CODE=$?
 
