@@ -37,7 +37,7 @@ cd portscan-script
 pip install -r requirements.txt
 
 # 3. Ejecutar
-python portscan-advanced.py
+python portscan-script.py
 ```
 
 ## Linux
@@ -161,7 +161,7 @@ python -m pip install --upgrade pip
 **Error: Permission denied**
 ```bash
 # Solución: Ejecutar con sudo
-sudo python3 portscan-advanced.py
+sudo python3 portscan-script.py
 ```
 
 **Error: ModuleNotFoundError**
@@ -173,7 +173,7 @@ pip3 install -r requirements.txt
 **Error: Scapy requiere privilegios**
 ```bash
 # Solución: Ejecutar como root
-sudo python3 portscan-advanced.py
+sudo python3 portscan-script.py
 ```
 
 ### macOS

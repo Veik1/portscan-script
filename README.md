@@ -47,7 +47,7 @@ sudo ./run.sh
 ### Modo Interactivo
 
 ```bash
-python portscan-advanced.py
+python portscan-script.py
 ```
 
 ---
@@ -177,7 +177,7 @@ sudo ./run.sh
 
 ```bash
 # Iniciar menu interactivo
-python portscan-advanced.py
+python portscan-script.py
 
 # Navegar usando numeros (1-14)
 # [1] Descubrimiento de dispositivos
@@ -190,25 +190,25 @@ python portscan-advanced.py
 
 ```bash
 # Escaneo rapido
-python portscan-advanced.py -t 192.168.1.1
+python portscan-script.py -t 192.168.1.1
 
 # Escaneo completo
-python portscan-advanced.py -t 192.168.1.1 -f
+python portscan-script.py-t 192.168.1.1 -f
 
 # Escaneo de puertos especificos
-python portscan-advanced.py -t 192.168.1.1 -p 80,443,22,3306
+python portscan-script.py -t 192.168.1.1 -p 80,443,22,3306
 
 # Deteccion de servicios
-python portscan-advanced.py -t 192.168.1.1 -s
+python portscan-script.py -t 192.168.1.1 -s
 
 # Guardar resultados en JSON
-python portscan-advanced.py -t 192.168.1.1 -o results.json
+python portscan-script.py -t 192.168.1.1 -o results.json
 
 # Guardar resultados en HTML
-python portscan-advanced.py -t 192.168.1.1 -s -o report.html
+python portscan-script.py -t 192.168.1.1 -s -o report.html
 
 # Ver ayuda
-python portscan-advanced.py --help
+python portscan-script.py --help
 ```
 
 ---

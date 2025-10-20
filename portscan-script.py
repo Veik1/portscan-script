@@ -40,6 +40,7 @@ class PortScanner:
         self.clear_screen()
         banner = f"""
 {Colors.GREEN}{Colors.BOLD}
+
 ╔══════════════════════════════════════════════════════════════════════════╗
 ║                                                                          ║
 ║   ██████╗  ██████╗ ██████╗ ████████╗███████╗ ██████╗ █████╗ ███╗   ██╗   ║
@@ -48,9 +49,8 @@ class PortScanner:
 ║   ██╔═══╝ ██║   ██║██╔══██╗   ██║   ╚════██║██║     ██╔══██║██║╚██╗██║   ║
 ║   ██║     ╚██████╔╝██║  ██║   ██║   ███████║╚██████╗██║  ██║██║ ╚████║   ║
 ║   ╚═╝      ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═══╝   ║
-║                                                                          ║
-║    {Colors.CYAN}Advanced Network Reconnaissance Tool{Colors.GREEN}       ║
-║               {Colors.YELLOW}v2.0 - 2025{Colors.GREEN}                   ║
+║                 {Colors.CYAN}Advanced Network Reconnaissance Tool{Colors.GREEN}                     ║
+║                              {Colors.YELLOW}v2.0 - 2025{Colors.GREEN}                                 ║
 ╚══════════════════════════════════════════════════════════════════════════╝
 {Colors.RESET}
         """

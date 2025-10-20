@@ -18,7 +18,7 @@ Esta guía contiene ejemplos prácticos de uso de PortScan Advanced para diferen
 
 **Modo Interactivo:**
 ```bash
-python portscan-advanced.py
+python portscan-script.py
 # Seleccionar opción [1]
 ```
 
@@ -37,7 +37,7 @@ IP                   MAC Address          Hostname
 
 ```bash
 # Modo CLI - Escaneo de top 100 puertos
-python portscan-advanced.py -t 192.168.1.100
+python portscan-script.py -t 192.168.1.100
 
 # Modo interactivo - Opción [2]
 ```
@@ -48,7 +48,7 @@ python portscan-advanced.py -t 192.168.1.100
 
 ```bash
 # ADVERTENCIA: Puede tardar varios minutos
-python portscan-advanced.py -t 192.168.1.100 -f
+python portscan-script.py -t 192.168.1.100 -f
 ```
 
 **Uso típico:** Auditoría completa de seguridad
@@ -61,7 +61,7 @@ python portscan-advanced.py -t 192.168.1.100 -f
 
 ```bash
 # Paso 1: Descubrimiento inicial
-python portscan-advanced.py -t webserver.local
+python portscan-script.py -t webserver.local
 
 # Paso 2: Detección de servicios y versiones
 # Opción [5] en menú interactivo
@@ -88,7 +88,7 @@ Puerto     Estado       Servicio             Versión
 
 ```bash
 # Ejecutar en modo interactivo
-python portscan-advanced.py
+python portscan-script.py
 
 # Opción [10] - Detección de Firewall
 # IP: servidor-produccion.com
@@ -102,7 +102,7 @@ python portscan-advanced.py
 
 ```bash
 # NOTA: Requiere privilegios de administrador
-sudo python portscan-advanced.py
+sudo python portscan-script.py
 
 # Opción [9] - Escaneo Sigiloso
 # IP: objetivo.com
@@ -126,7 +126,7 @@ sudo python portscan-advanced.py
 # scan-network.sh - Escanea toda la red y genera reporte
 
 # Descubrir dispositivos
-python3 portscan-advanced.py << EOF
+python3 portscan-script.py << EOF
 1
 
 EOF
@@ -134,7 +134,7 @@ EOF
 # Para cada IP encontrada, hacer escaneo de servicios
 for ip in 192.168.1.{1..254}; do
     echo "Escaneando $ip..."
-    python3 portscan-advanced.py -t $ip -s -o scan_${ip}.json
+    python3 portscan-script.py -t $ip -s -o scan_${ip}.json
 done
 
 # Consolidar resultados
@@ -145,12 +145,12 @@ echo "Escaneos completados. Ver archivos scan_*.json"
 
 **Primera ejecución (baseline):**
 ```bash
-python portscan-advanced.py -t 192.168.1.100 -s -o baseline.json
+python portscan-script.py -t 192.168.1.100 -s -o baseline.json
 ```
 
 **Ejecuciones posteriores:**
 ```bash
-python portscan-advanced.py -t 192.168.1.100 -s -o current.json
+python portscan-script.py -t 192.168.1.100 -s -o current.json
 
 # Comparar con herramienta diff
 diff baseline.json current.json
@@ -164,7 +164,7 @@ diff baseline.json current.json
 
 ```bash
 # Verificar servidor de base de datos
-python portscan-advanced.py -t db-server.local -p 3306,5432,1433,27017
+python portscan-script.py -t db-server.local -p 3306,5432,1433,27017
 
 # Esperado: Puerto correspondiente OPEN
 ```
@@ -193,14 +193,14 @@ python portscan-advanced.py -t db-server.local -p 3306,5432,1433,27017
 
 ```bash
 # Escaneo completo de servidor en producción
-python portscan-advanced.py -t prod-server.com -f -o production_audit.html
+python portscan-script.py -t prod-server.com -f -o production_audit.html
 
 # Revisar el HTML generado
 # Buscar puertos inesperados:
-# - 23 (Telnet) ❌
-# - 21 (FTP) ⚠️
-# - 3389 (RDP expuesto a internet) ❌
-# - Puertos altos no documentados ⚠️
+# - 23 (Telnet)
+# - 21 (FTP)
+# - 3389 (RDP expuesto a internet)
+# - Puertos altos no documentados
 ```
 
 ### Caso 4: Banner Grabbing para identificar servicios
@@ -254,7 +254,7 @@ $targets = @(
 
 foreach ($target in $targets) {
     Write-Host "Escaneando $target..." -ForegroundColor Green
-    python portscan-advanced.py -t $target -s -o "report_$target.html"
+    python portscan-script.py -t $target -s -o "report_$target.html"
     Start-Sleep -Seconds 5
 }
 
@@ -279,7 +279,7 @@ echo "Iniciando escaneo diario: $DATE" | tee -a $LOG_FILE
 
 # Red local
 echo "Escaneando red local..." | tee -a $LOG_FILE
-sudo python3 portscan-advanced.py << EOF | tee -a $LOG_FILE
+sudo python3 portscan-script.py << EOF | tee -a $LOG_FILE
 1
 
 EOF
@@ -293,7 +293,7 @@ SERVERS=(
 
 for server in "${SERVERS[@]}"; do
     echo "Escaneando $server..." | tee -a $LOG_FILE
-    python3 portscan-advanced.py -t $server -s -o "${server}_${DATE}.json"
+    python3 portscan-script.py -t $server -s -o "${server}_${DATE}.json"
 done
 
 echo "Escaneo completado: $DATE" | tee -a $LOG_FILE
@@ -320,7 +320,7 @@ from datetime import datetime
 
 def scan_target(ip, output_file):
     """Ejecuta escaneo y retorna resultados"""
-    cmd = f"python portscan-advanced.py -t {ip} -s -o {output_file}"
+    cmd = f"python portscan-script.py -t {ip} -s -o {output_file}"
     subprocess.run(cmd, shell=True)
     
     # Leer resultados
@@ -388,7 +388,7 @@ if __name__ == "__main__":
 
 ```bash
 # Establecer baseline de seguridad
-python portscan-advanced.py -t servidor.com -f -o baseline_$(date +%Y%m%d).json
+python portscan-script.py -t servidor.com -f -o baseline_$(date +%Y%m%d).json
 
 # Comparar mensualmente
 # Buscar: nuevos puertos, servicios cambiados, versiones actualizadas
@@ -398,7 +398,7 @@ python portscan-advanced.py -t servidor.com -f -o baseline_$(date +%Y%m%d).json
 
 ```bash
 # Siempre exportar resultados
-python portscan-advanced.py -t objetivo.com -s -o audit_$(date +%Y%m%d_%H%M%S).html
+python portscan-script.py -t objetivo.com -s -o audit_$(date +%Y%m%d_%H%M%S).html
 
 # Mantener histórico de escaneos
 mkdir -p scans/$(date +%Y)/$(date +%m)
@@ -409,7 +409,7 @@ mv *.html scans/$(date +%Y)/$(date +%m)/
 
 ```bash
 # PortScan Advanced para descubrimiento
-python portscan-advanced.py -t 192.168.1.100 -s
+python portscan-script.py -t 192.168.1.100 -s
 
 # Luego usar herramientas especializadas:
 # - Nikto para servidores web
@@ -482,7 +482,7 @@ python portscan-advanced.py -t 192.168.1.100 -s
 ```bash
 # Ejecutar con privilegios elevados
 # Windows: Run as Administrator
-# Linux/macOS: sudo python3 portscan-advanced.py
+# Linux/macOS: sudo python3 portscan-script.py
 ```
 
 ---
